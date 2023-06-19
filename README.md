@@ -36,3 +36,5 @@ https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=3D%20Object%20View
 ![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-4.jpg)
 
 ## Video
+
+https://www.youtube.com/watch?v=EYpagLf3rKw&ab_channel=Die
