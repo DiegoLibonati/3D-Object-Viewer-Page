@@ -21,19 +21,7 @@ This page allows you to visualize objects in 3D. In addition to being able to ch
 
 ## Portfolio Link
 
-https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=3D%20Object%20Viewer%20Page
-
-## Galery
-
-![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-0.jpg)
-
-![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-1.jpg)
-
-![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-2.jpg)
-
-![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-3.jpg)
-
-![OBJECT-VIEWER](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/3d-object-viewer-4.jpg)
+[`https://www.diegolibonati.com.ar/#/project/2`](https://www.diegolibonati.com.ar/#/project/2)
 
 ## Video
 
