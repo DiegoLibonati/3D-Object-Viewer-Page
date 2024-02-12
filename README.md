@@ -13,7 +13,7 @@ This page allows you to visualize objects in 3D. In addition to being able to ch
 
 ## Technologies used
 
-1. Javascript
+1. Typescript
 
 ## Libraries used
 
