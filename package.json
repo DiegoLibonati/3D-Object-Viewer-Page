@@ -1,13 +1,15 @@
 {
   "name": "visualizador-de-objectos-3d",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "devDependencies": {
+    "@types/three": "^0.161.2",
+    "typescript": "^5.3.3",
     "vite": "^4.0.4"
   },
   "dependencies": {

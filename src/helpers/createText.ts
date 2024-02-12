@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+import { Font } from "three/examples/jsm/loaders/FontLoader.js";
 
-export const createText = (material, text, font) => {
-  console.log(text);
+export const createText = (material: THREE.MeshStandardMaterial, text: string, font: Font):  THREE.Mesh<TextGeometry, any, THREE.Object3DEventMap> => {
+
   const textGeometry = new TextGeometry(text, {
     font: font,
     size: 0.5,

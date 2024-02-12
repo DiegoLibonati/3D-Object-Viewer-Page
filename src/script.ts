@@ -1,13 +1,12 @@
 import * as THREE from "three";
+import * as dat from "lil-gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
-import { createText } from "./helpers/createText";
-import * as dat from "lil-gui";
 import { generateIndex } from "./helpers/generateIndex";
-import { objects } from "./constants/objects";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { createText } from "./helpers/createText";
+import { objects } from "./constants/objects";
 import { createGui } from "./helpers/createGui";
-import { objectsMaterialGui } from "./constants/objectsMaterialGui";
 import { objectsMeshGui } from "./constants/objectsMeshGui";
 import { objectsTextGui } from "./constants/objectsTextGui";
 
@@ -17,19 +16,25 @@ import { objectsTextGui } from "./constants/objectsTextGui";
 const gui = new dat.GUI();
 
 // Canvas
-const canvas = document.querySelector(".webgl");
+const canvas = document.querySelector(".webgl") as HTMLCanvasElement;
 
 // Img Arrows
-const rightKeyboard = document.getElementById("right");
-const leftKeyboard = document.getElementById("left");
+const rightKeyboard = document.getElementById("right") as HTMLButtonElement;
+const leftKeyboard = document.getElementById("left") as HTMLButtonElement;
 
 // Input File
-const inputFile = document.getElementById("input-file");
+const inputFile = document.getElementById("input-file") as HTMLInputElement;
 
 // Modal
-const modalContainer = document.querySelector(".alert_container");
-const modalText = document.querySelector(".alert_container_wrapper h2");
-const buttonModal = document.querySelector(".alert_container_button");
+const modalContainer = document.querySelector(
+  ".alert_container"
+) as HTMLElement;
+const modalText = document.querySelector(
+  ".alert_container_wrapper h2"
+) as HTMLHeadingElement;
+const buttonModal = document.querySelector(
+  ".alert_container_button"
+) as HTMLButtonElement;
 
 buttonModal.addEventListener("click", () => {
   modalContainer.style.display = "none";
@@ -57,7 +62,7 @@ scene.background = enviromentMapTexture;
 // Fonts
 const fontLoader = new FontLoader();
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-  let text = createText(material, objects[index].name, font);
+  let text = createText(material, objects[index as number].name, font);
 
   text.geometry.center();
   text.position.y = 2;
@@ -69,13 +74,15 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
   // Events
   ["keydown", "touchstart"].forEach((event) => {
     document.addEventListener(event, (e) => {
-      const idKey = e.target.id;
+      const target = e.target as HTMLElement;
+      const idKey = target.id;
       const eventType = e.type;
-      const key = e.key;
+      const eventKeyboard = e as KeyboardEvent;
       const keysAllowed = ["ArrowRight", "ArrowLeft"];
       const idsAllowed = ["right", "left"];
 
-      if (!keysAllowed.includes(key) && eventType === "keydown") return;
+      if (!keysAllowed.includes(eventKeyboard.key) && eventType === "keydown")
+        return;
       if (!idsAllowed.includes(idKey) && eventType === "touchstart") return;
 
       geometry.dispose();
@@ -85,16 +92,16 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
       scene.remove(mesh, text);
 
       if (objects[index].model) {
-        scene.remove(objects[index].model.scene);
+        scene.remove(objects[index]?.model!.scene);
       }
 
-      if (key === "ArrowRight" || idKey === "right") {
+      if (eventKeyboard.key === "ArrowRight" || idKey === "right") {
         index = generateIndex(index, objects.length, true, false);
-        rightKeyboard.style.opacity = 0.5;
+        rightKeyboard.style.opacity = "0.5";
         rightKeyboard.style.transform = "scale(0.8) rotate(180deg)";
       } else {
         index = generateIndex(index, objects.length, false, true);
-        leftKeyboard.style.opacity = 0.5;
+        leftKeyboard.style.opacity = "0.5";
         leftKeyboard.style.transform = "scale(0.8)";
       }
 
@@ -106,24 +113,32 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
 
       if (objects[index].model) {
         const gltf = objects[index].model;
-        scene.add(gltf.scene, text);
+        scene.add(gltf!.scene, text);
 
-        gltf.scene.traverse((obj) => {
-          if (obj) {
-            obj.material = material;
-            obj.material.metalness = 0.766;
-            obj.material.roughness = 0.041;
-            obj.material.color.set("#fff");
+        gltf!.scene.traverse(
+          (
+            obj: THREE.Object3D<THREE.Object3DEventMap> & {
+              material?: THREE.MeshStandardMaterial;
+            }
+          ) => {
+            if (obj) {
+              obj.material = material;
+              obj.material.metalness = 0.766;
+              obj.material.roughness = 0.041;
+              obj.material.color.set("#fff");
+            }
           }
-        });
+        );
 
-        folderMesh = createGui(gui, gltf.scene, objectsMeshGui, "Mesh");
+        // @ts-ignore:next-line
+        folderMesh = createGui(gui, gltf!.scene, objectsMeshGui, "Mesh");
 
         return;
       }
 
       mesh = new THREE.Mesh(
-        new THREE[objects[index].name](...objects[index].params),
+        // @ts-ignore:next-line
+        new THREE![objects[index].name](...objects[index].params),
         material
       );
 
@@ -136,8 +151,8 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
 
 ["keyup", "touchend"].forEach((event) => {
   document.addEventListener(event, () => {
-    rightKeyboard.style.opacity = 1;
-    leftKeyboard.style.opacity = 1;
+    rightKeyboard.style.opacity = "1";
+    leftKeyboard.style.opacity = "1";
     rightKeyboard.style.transform = "scale(1) rotate(180deg)";
     leftKeyboard.style.transform = "scale(1)";
   });
@@ -146,15 +161,19 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
 inputFile.addEventListener(
   "change",
   (e) => {
-    const file = window.URL.createObjectURL(new Blob([e.target.files[0]]));
+    const target = e.target as HTMLInputElement;
+
+    const file = window.URL.createObjectURL(new Blob([target.files![0]]));
     loaderGLTF.load(
       file,
       (gltf) => {
         objects.push({
-          name: e.target.files[0].name.split(".")[0],
+          name: target.files![0].name.split(".")[0],
           model: gltf,
         });
-        modalText.innerHTML = `Your model ${e.target.files[0].name} was added. Use the arrows of your keyboard to find your custom model.`;
+        modalText.innerHTML = `Your model ${
+          target.files![0].name
+        } was added. Use the arrows of your keyboard to find your custom model.`;
         modalContainer.style.display = "flex";
       },
       undefined,
@@ -197,7 +216,11 @@ scene.add(light);
 // First Mesh
 
 let index = 0;
-const geometry = new THREE[objects[index].name](...objects[index].params);
+// @ts-ignore:next-line
+const geometry = new THREE[objects[index as number].name](
+  // @ts-ignore:next-line
+  ...objects[index as number].params
+);
 const material = new THREE.MeshStandardMaterial({
   envMap: enviromentMapTexture,
   metalness: 0.766,
@@ -207,7 +230,6 @@ const material = new THREE.MeshStandardMaterial({
 let mesh = new THREE.Mesh(geometry, material);
 
 // Folder
-const folderMaterial = createGui(gui, material, objectsMaterialGui, "Material");
 let folderMesh = createGui(gui, mesh, objectsMeshGui, "Mesh");
 
 scene.add(mesh);
@@ -235,9 +257,6 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 renderer.render(scene, camera);
-
-// Animation
-const clock = new THREE.Clock();
 
 const tick = () => {
   //const elapsedTime = clock.getElapsedTime();

@@ -1,4 +1,6 @@
-export const objectsMeshGui = [
+import { MeshGui } from "../entities/entities";
+
+export const objectsMeshGui: MeshGui[] = [
   {
     name: "position",
     key: "x",
@@ -51,5 +53,8 @@ export const objectsMeshGui = [
     name: "material",
     key: "color",
     description: "Color",
+    min: 0,
+    max: 0,
+    step: 0,
   },
 ];

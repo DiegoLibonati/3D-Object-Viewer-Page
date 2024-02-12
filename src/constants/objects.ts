@@ -1,6 +1,8 @@
 // Objects
 
-export const objects = [
+import { ObjectModel } from "../entities/entities";
+
+export const objects: ObjectModel[] = [
   {
     name: "BoxGeometry",
     params: [2, 2, 2],

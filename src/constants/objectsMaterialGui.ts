@@ -1,6 +1,8 @@
-export const objectsMaterialGui = [
+import { MaterialGui } from "../entities/entities";
+
+export const objectsMaterialGui: MaterialGui[] = [
   {
-    name: null,
+    name: "",
     key: "metalness",
     min: -1,
     max: 1,
@@ -8,7 +10,7 @@ export const objectsMaterialGui = [
     description: "Metalness",
   },
   {
-    name: null,
+    name: "",
     key: "roughness",
     min: -1,
     max: 1,

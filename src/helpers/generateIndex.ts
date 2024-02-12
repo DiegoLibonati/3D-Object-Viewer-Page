@@ -1,10 +1,10 @@
 export const generateIndex = (
-  index,
-  lenArr,
-  increment = false,
-  decrement = false
-) => {
-  let newIndex;
+  index: number,
+  lenArr: number,
+  increment: boolean = false,
+  decrement: boolean = false
+): number => {
+  let newIndex: number = 0;
   if (increment) newIndex = index += 1;
   if (decrement) newIndex = index -= 1;
 
